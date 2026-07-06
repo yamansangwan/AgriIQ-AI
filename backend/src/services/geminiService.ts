@@ -52,10 +52,11 @@ export const callGemini = async (prompt: string, imageBase64?: string): Promise<
   } catch (error: any) {
     console.error('Gemini API Error:', error);
     const msg = error.message || '';
-    if (error.status === 429 || error.status === 503 || msg.includes('429') || msg.includes('quota') || msg.includes('demand')) {
-      console.log('API limit or overload reached. Falling back to mock data.');
-      return generateMockResponse(prompt);
-    }
+    // for rate limiting
+    // if (error.status === 429 || error.status === 503 || msg.includes('429') || msg.includes('quota') || msg.includes('demand')) {
+    //   console.log('API limit or overload reached. Falling back to mock data.');
+    //   return generateMockResponse(prompt);
+    // }
     throw new Error(msg || 'Failed to generate content from Gemini');
   }
 };
