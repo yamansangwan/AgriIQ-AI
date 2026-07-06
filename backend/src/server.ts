@@ -24,11 +24,11 @@ app.use(express.urlencoded({ extended: true }));
 // Serve uploads folder statically so images don't disappear when ImageKit is not used
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-});
-app.use(limiter);
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 100, // limit each IP to 100 requests per windowMs
+// });
+// app.use(limiter);
 
 // Routes
 app.use('/api', routes);
