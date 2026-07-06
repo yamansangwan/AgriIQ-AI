@@ -28,8 +28,10 @@ export const analyzeCrop = async (req: Request, res: Response) => {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
       await fs.promises.writeFile(localFilePath, file.buffer);
-      // Use dynamic host for production/Render compatibility
-      const hostUrl = req.get('host') ? `${req.protocol}://${req.get('host')}` : 'http://localhost:5000';
+      // Force HTTPS on render because req.protocol is HTTP behind their load balancer
+      const host = req.get('host');
+      const protocol = host?.includes('onrender.com') ? 'https' : req.protocol;
+      const hostUrl = host ? `${protocol}://${host}` : 'http://localhost:5000';
       imageUrl = `${hostUrl}/uploads/${localFileName}`;
     } catch (e) {
       console.error('Failed to write local file', e);
