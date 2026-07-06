@@ -19,10 +19,15 @@ export const analyzeCrop = async (req: Request, res: Response) => {
 
     let imageUrl = '';
     const localFileName = `agripilot-${Date.now()}-${file.originalname}`;
-    const localFilePath = path.join(__dirname, '../../uploads', localFileName);
+    cconst uploadDir = path.join(__dirname, '../../uploads');
+    const localFilePath = path.join(uploadDir, localFileName);
     
     // Save to local disk for local serving fallback
     try {
+      
+        if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
       await fs.promises.writeFile(localFilePath, file.buffer);
       imageUrl = `http://localhost:5000/uploads/${localFileName}`;
     } catch (e) {
@@ -39,9 +44,10 @@ export const analyzeCrop = async (req: Request, res: Response) => {
           folder: '/agripilot'
         });
         imageUrl = uploadResponse.url;
-      } catch (err) {
-        console.warn('ImageKit upload failed, falling back to local URL');
-      }
+      } catch (err: any) {
+        console.error('ImageKit upload failed explicitly:', err.message || err);
+    } else {
+      console.warn('ImageKit keys missing, skipping ImageKit upload.');
     }
 
     // 2. Convert buffer to base64 for Gemini
