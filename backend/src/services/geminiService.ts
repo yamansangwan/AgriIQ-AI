@@ -41,7 +41,7 @@ export const callGemini = async (prompt: string, imageBase64?: string): Promise<
     }
 
     const response = await ai.models.generateContent({
-      model: 'gemini-flash-latest',
+      model: 'gemini-2.5-flash',
       contents: contents,
       config: {
         responseMimeType: 'application/json',
@@ -52,7 +52,7 @@ export const callGemini = async (prompt: string, imageBase64?: string): Promise<
   } catch (error: any) {
     console.error('Gemini API Error:', error);
     const msg = error.message || '';
-    if (error.status === 429 || error.status === 503 || msg.includes('429') || msg.includes('quota') || msg.includes('demand') || error.status === 404) {
+    if (error.status === 429 || error.status === 503 || msg.includes('429') || msg.includes('quota') || msg.includes('demand')) {
       console.log('API limit or overload reached. Falling back to mock data.');
       return generateMockResponse(prompt);
     }
