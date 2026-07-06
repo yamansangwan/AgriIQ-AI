@@ -19,17 +19,18 @@ export const analyzeCrop = async (req: Request, res: Response) => {
 
     let imageUrl = '';
     const localFileName = `agripilot-${Date.now()}-${file.originalname}`;
-    cconst uploadDir = path.join(__dirname, '../../uploads');
+    const uploadDir = path.join(__dirname, '../../uploads');
     const localFilePath = path.join(uploadDir, localFileName);
     
     // Save to local disk for local serving fallback
     try {
-      
-        if (!fs.existsSync(uploadDir)) {
+      if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
       }
       await fs.promises.writeFile(localFilePath, file.buffer);
-      imageUrl = `http://localhost:5000/uploads/${localFileName}`;
+      // Use dynamic host for production/Render compatibility
+      const hostUrl = req.get('host') ? `${req.protocol}://${req.get('host')}` : 'http://localhost:5000';
+      imageUrl = `${hostUrl}/uploads/${localFileName}`;
     } catch (e) {
       console.error('Failed to write local file', e);
       imageUrl = 'https://images.unsplash.com/photo-1592982537447-6f2a6a0c5c1b?q=80&w=1000&auto=format&fit=crop';
@@ -46,6 +47,7 @@ export const analyzeCrop = async (req: Request, res: Response) => {
         imageUrl = uploadResponse.url;
       } catch (err: any) {
         console.error('ImageKit upload failed explicitly:', err.message || err);
+      }
     } else {
       console.warn('ImageKit keys missing, skipping ImageKit upload.');
     }
