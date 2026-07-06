@@ -83,10 +83,18 @@ export default function DashboardPage({ params }: { params: Promise<{ id: string
         {/* Left Column: Summary & Scores */}
         <div className="lg:col-span-1 space-y-8">
           <Card className="rounded-[2rem] border border-emerald-100/50 shadow-xl shadow-emerald-900/5 overflow-hidden bg-white/80 backdrop-blur-xl">
-            <div className="h-64 w-full bg-emerald-50 relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={report.imageUrl} alt="Crop" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            <div className="h-64 w-full relative bg-gradient-to-br from-[#105921] via-emerald-700 to-teal-800 flex flex-col items-center justify-center text-white overflow-hidden">
+              {/* Subtle background pattern */}
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+              
+              <ShieldCheck className="w-16 h-16 text-emerald-200 mb-3 drop-shadow-lg" />
+              <h3 className="text-3xl font-extrabold tracking-tight drop-shadow-md relative z-10" style={{ fontFamily: 'var(--font-outfit)' }}>
+                Analysis Complete
+              </h3>
+              <p className="text-emerald-100/90 mt-2 font-medium text-lg px-6 text-center max-w-md relative z-10">
+                {report.cropVision?.crop ? `Target: ${report.cropVision.crop}` : "AI Scan Successfully Finalized"}
+              </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-0" />
             </div>
             <CardContent className="p-8">
               <h2 className="text-3xl font-extrabold mb-4 text-gray-900 drop-shadow-sm" style={{ fontFamily: 'var(--font-outfit)' }}>Executive Summary</h2>
