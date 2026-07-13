@@ -234,17 +234,16 @@ Backend: https://agriiq-ai.onrender.com
 
 # Screenshots
 
-Add screenshots of:
 
-1. Landing Page
+1. Landing Page <br>
 <img width="631" height="289" alt="Landing Page" src="https://github.com/user-attachments/assets/3513211a-acc2-4255-bc56-13f1a47f6755" />
-2. Upload Interface
+2. Upload Interface <br>
 <img width="631" height="289" alt="Upload Interface" src="https://github.com/user-attachments/assets/7c448777-93f5-4d3f-815a-09571a6426ad" />
-3. Analysis Processing
-4. Results Dashboard
+3. Analysis Processing <br>
+4. Results Dashboard <br>
 <img width="631" height="289" alt="Results Dashboard" src="https://github.com/user-attachments/assets/a307f33c-5ed1-4571-84c3-3251fa841ca3" />
-5. Agent Workflow
-6. Mobile Responsive View
+5. Agent Workflow <br>
+6. Mobile Responsive View <br>
 <img width="427" height="811" alt="Screenshot 2026-07-07 012033" src="https://github.com/user-attachments/assets/16aa4d9b-a59e-4999-95d3-663684f73d48" />
 
 
